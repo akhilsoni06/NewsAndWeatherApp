@@ -52,7 +52,6 @@ public class NewsListFragment extends Fragment {
                     setAdapter(newsItem.articleList);
                     Log.d(TAG, "actor size=" + newsItem.articleList.size());
                 }
-
                 mProgressBar.setVisibility(View.GONE);
             }
         });
@@ -60,7 +59,7 @@ public class NewsListFragment extends Fragment {
 
     private void setAdapter(List<NewsItem.Article> articleList) {
         if (articleList != null && articleList.size() > 0) {
-            mListAdapter = new RecycleViewAdapter(articleList);
+            mListAdapter =new RecycleViewAdapter(articleList);
             mRecycleListView.setAdapter(mListAdapter);
         }
     }

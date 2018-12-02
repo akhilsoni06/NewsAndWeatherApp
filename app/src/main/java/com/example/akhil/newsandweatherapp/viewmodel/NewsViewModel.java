@@ -14,10 +14,8 @@ import com.example.akhil.newsandweatherapp.model.NewsItem;
 import java.util.List;
 
 public class NewsViewModel extends AndroidViewModel {
-
     private RestApiClient mRestApiClient;
     private MediatorLiveData<NewsItem> mMediatorLiveData;
-
 
     public NewsViewModel(@NonNull Application application) {
         super(application);
