@@ -47,6 +47,7 @@ public class CommonPagerFragment extends BasePagerFragment implements ViewPager.
 
     @Override
     public void onPageSelected(int position) {
+    mViewPager.getAdapter().notifyDataSetChanged();
     }
 
     @Override

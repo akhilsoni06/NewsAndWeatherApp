@@ -16,7 +16,9 @@ import android.widget.ProgressBar;
 import com.example.akhil.newsandweatherapp.R;
 import com.example.akhil.newsandweatherapp.adapter.RecycleViewAdapter;
 import com.example.akhil.newsandweatherapp.database.AppDatabase;
-import com.example.akhil.newsandweatherapp.model.NewsItem;
+import com.example.akhil.newsandweatherapp.model.Article;
+
+import java.util.List;
 
 public class FavoriteFragment extends Fragment {
 
@@ -50,28 +52,27 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-      // loadNewsResult();
+       loadNewsResult();
     }
 
     /**
      * This method load the user info from the user table.
      */
-    private void loadNewsResult() {
-        new AsyncTask<Void, Void, NewsItem>() {
+   private void loadNewsResult() {
+        new AsyncTask<Void, Void, List<Article>>() {
             @Override
-            protected NewsItem doInBackground(Void... params) {
+            protected List<Article> doInBackground(Void... params) {
                 return mDataBase.getNewsItemDao().getAllNewsList();
             }
 
             @Override
-            protected void onPostExecute(NewsItem newsItem) {
-                if (newsItem != null && newsItem.articleList != null && newsItem.articleList.size() > 0) {
-                    mListAdapter = new RecycleViewAdapter(newsItem.articleList);
+            protected void onPostExecute(List<Article> newsItem) {
+                if ( newsItem != null && newsItem.size() > 0) {
+                    mListAdapter = new RecycleViewAdapter(null,newsItem);
                     mRecycleListView.setAdapter(mListAdapter);
                 }
                 mProgressBar.setVisibility(View.GONE);
             }
         }.execute();
     }
-
 }

@@ -6,6 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import com.example.akhil.newsandweatherapp.model.Article;
 import com.example.akhil.newsandweatherapp.model.NewsItem;
 
 import java.util.List;
@@ -14,14 +15,14 @@ import java.util.List;
 public interface NewsItemDao {
 
     @Insert
-    void insetAll(NewsItem... newsItem);
+    void insertAll(Article... newsItem);
 
     @Update
-    void updateAll(NewsItem... user);
+    void updateAll(Article... newsItem);
 
     @Delete
-    void deleteAll(NewsItem... user);
+    void deleteAll(Article... newsItem);
 
     @Query("SELECT * FROM news")
-    NewsItem getAllNewsList();
+    List<Article> getAllNewsList();
 }

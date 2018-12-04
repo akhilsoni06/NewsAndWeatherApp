@@ -1,5 +1,6 @@
 package com.example.akhil.newsandweatherapp.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,6 +31,11 @@ public class CommonPagerAdapter extends FragmentPagerAdapter {
         }
 
         return fragment;
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
     }
 
     @Override

@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.akhil.newsandweatherapp.R;
+import com.example.akhil.newsandweatherapp.interactor.ItemFavoriteListener;
+import com.example.akhil.newsandweatherapp.model.Article;
 import com.example.akhil.newsandweatherapp.model.NewsItem;
 import com.squareup.picasso.Picasso;
 
@@ -17,10 +19,12 @@ import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ItemHolder> {
 
-    private List<NewsItem.Article> mNewsList;
+    private List<Article> mNewsList;
+    private ItemFavoriteListener mListener;
 
-    public RecycleViewAdapter(List<NewsItem.Article> list) {
+    public RecycleViewAdapter(ItemFavoriteListener listener, List<Article> list) {
         this.mNewsList = list;
+        this.mListener = listener;
     }
 
     @Override
@@ -32,10 +36,21 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public void onBindViewHolder(ItemHolder holder, int position) {
-        NewsItem.Article newsItem = mNewsList.get(position);
+       final Article newsItem = mNewsList.get(position);
         holder.mTitle.setText(newsItem.title);
         holder.mDescription.setText(newsItem.description);
         Picasso.with(holder.itemView.getContext()).load(newsItem.urlToImage).error(holder.itemView.getResources().getDrawable(R.drawable.ic_launcher_background)).into(holder.mItemImage);
+
+
+        holder.mTxtFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemFavoriteClicked(newsItem);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -47,11 +62,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         private TextView mTitle;
         private TextView mDescription;
         private ImageView mItemImage;
+        private TextView mTxtFavorite;
 
         public ItemHolder(View itemView) {
             super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.txt_title);
             mDescription = (TextView) itemView.findViewById(R.id.txt_description);
+            mTxtFavorite = (TextView) itemView.findViewById(R.id.txt_bookmark);
             mItemImage = (ImageView) itemView.findViewById(R.id.image);
         }
     }
